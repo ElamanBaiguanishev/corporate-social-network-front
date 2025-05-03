@@ -6,15 +6,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import StarIcon from '@mui/icons-material/Star';
-import SendIcon from '@mui/icons-material/Send';
-import DraftsIcon from '@mui/icons-material/Drafts';
-import MailIcon from '@mui/icons-material/Mail';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ReportIcon from '@mui/icons-material/Report';
 import { Link } from 'react-router-dom';
 import { FC } from 'react';
+import { Chat as ChatIcon, Delete as DeleteIcon, Feed as FeedIcon, Assignment as TaskIcon } from '@mui/icons-material';
 
 export const drawerWidth = 240;
 
@@ -75,42 +69,27 @@ interface DrawerComponentProps {
 export const LeftDrawer: FC<DrawerComponentProps> = ({ open }) => {
     const menuItems = [
         {
-            text: 'Inbox',
-            path: '/inbox',
-            icon: <InboxIcon />
+            text: 'Лента',
+            path: '/feed',
+            icon: <FeedIcon />
         },
         {
-            text: 'Starred',
-            path: '/starred',
-            icon: <StarIcon />
+            text: 'Задачи',
+            path: '/tasks',
+            icon: <TaskIcon />
         },
         {
-            text: 'Send email',
-            path: '/send',
-            icon: <SendIcon />
-        },
-        {
-            text: 'Drafts',
-            path: '/drafts',
-            icon: <DraftsIcon />
+            text: 'Чаты',
+            path: '/chats',
+            icon: <ChatIcon />
         }
     ];
 
     const additionalItems = [
         {
-            text: 'All mail',
-            path: '/all-mail',
-            icon: <MailIcon />
-        },
-        {
-            text: 'Trash',
+            text: 'Корзина',
             path: '/trash',
             icon: <DeleteIcon />
-        },
-        {
-            text: 'Spam',
-            path: '/spam',
-            icon: <ReportIcon />
         }
     ];
 

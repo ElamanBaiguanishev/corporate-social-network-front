@@ -1,5 +1,4 @@
 import { RouterProvider } from 'react-router-dom'
-import { router } from './routes/router'
 import { Box, CircularProgress, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { themeChoice } from './newtheme';
 import { useAppDispatch, useAppSelector } from './store/hooks';
@@ -7,6 +6,7 @@ import { getTokenFromLocalStorage } from './helpers/localstorage.helper';
 import { useEffect, useState } from 'react';
 import { AuthService } from './api/auth.service';
 import { login, logout } from './store/user/userSlice';
+import { router } from './routes/router';
 
 function App() {
   const mode = useAppSelector((state) => state.theme.mode)

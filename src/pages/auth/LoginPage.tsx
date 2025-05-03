@@ -9,10 +9,10 @@ import {
   Paper,
   Alert,
 } from '@mui/material';
-import { AuthService } from '../api/auth.service';
-import { useAppDispatch } from '../store/hooks';
-import { login } from '../store/user/userSlice';
-import { setTokenToLocalStorage } from '../helpers/localstorage.helper';
+import { AuthService } from '../../api/auth.service';
+import { useAppDispatch } from '../../store/hooks';
+import { login } from '../../store/user/userSlice';
+import { setTokenToLocalStorage } from '../../helpers/localstorage.helper';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');

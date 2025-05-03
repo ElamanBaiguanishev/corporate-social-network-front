@@ -4,7 +4,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Outlet } from 'react-router-dom';
 import { AppBarComponent } from './AppBar';
 import { LeftDrawer } from './LeftDrawer';
-import { RightNavigation } from './RightNavigation';
 import { RightDrawer } from './RightDrawer';
 
 export const MainLayout: FC = () => {
@@ -44,19 +43,22 @@ export const MainLayout: FC = () => {
                 onClose={handleLeftDrawerClose}
             />
             <LeftDrawer open={leftDrawerOpen} />
-            <RightNavigation onToggleDrawer={handleRightDrawerToggle} />
             <RightDrawer
                 open={rightDrawerOpen}
                 type={rightDrawerType}
                 onClose={handleRightDrawerClose}
+                onToggleDrawer={handleRightDrawerToggle}
             />
             <Box
                 component="main"
                 sx={{
                     flexGrow: 1,
                     p: 3,
-                    mt: 8,
-                    mr: 7
+                    pt: 10,
+                    mr: 6,
+                    height: '100vh',
+                    overflow: 'auto',
+                    transition: 'margin 0.3s ease-in-out',
                 }}
             >
                 <Outlet />
