@@ -1,0 +1,33 @@
+name: Deploy Frontend (Vite) to VPS via SSH
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Deploy frontend via SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        script: |
+          cd /var/www/vkr/frontend
+
+          if [ ! -d ".git" ]; then
+            git clone https://github.com/ElamanBaiguanishev/corporate-social-network-front . 
+          else
+            git pull
+          fi
+
+          npm install
+          export VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}
+          npm run build
