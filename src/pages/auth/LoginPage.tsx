@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -20,6 +20,7 @@ export const LoginPage = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useAppDispatch();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,7 +33,9 @@ export const LoginPage = () => {
       if (response) {
         setTokenToLocalStorage('token', response.token);
         dispatch(login(response));
-        navigate('/');
+        // Redirect to the originally requested page or home page
+        const from = (location.state as any)?.from || '/';
+        navigate(from);
       }
     } catch (err) {
       setError('Неверный email или пароль');

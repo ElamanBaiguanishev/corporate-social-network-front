@@ -1,67 +1,85 @@
 import { createBrowserRouter } from "react-router-dom";
 import { LoginPage } from "../pages/auth/LoginPage";
-import { ProtectedRoute } from "../components/common/ProtectedRoute";
+import { RegistrationPage } from "../pages/auth/RegistrationPage";
+import { AuthGuard } from "../components/common/AuthGuard";
+import { RoleGuard } from "../components/common/RoleGuard";
 import HomePage from "../pages/home/HomePage";
 import { MainLayout } from "../components/layout/MainLayout";
 import { Chats } from "../pages/chat/Chats";
 import { Chat } from "../pages/chat/Chat";
 import { KanbanBoard } from "../pages/tasks/KanbanBoard";
 import { FeedPage } from "../pages/feed/FeedPage";
+import { RoleTypes } from "../types/role/role-types";
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <MainLayout />,
-        // errorElement: <MiniApp404 />,
+        element: (
+            <AuthGuard>
+                <MainLayout />
+            </AuthGuard>
+        ),
         children: [
             {
                 path: 'feed',
-                element: <ProtectedRoute><FeedPage /></ProtectedRoute>
+                element: <FeedPage />
             },
             {
                 path: 'chats',
-                element: <ProtectedRoute><Chats /></ProtectedRoute>
+                element: <Chats />
             },
             {
                 path: 'chat/:id',
-                element: <ProtectedRoute><Chat /></ProtectedRoute>
+                element: <Chat />
             },
             {
                 path: 'inbox',
-                element: <ProtectedRoute><HomePage /></ProtectedRoute>
+                element: <HomePage />
             },
             {
                 path: 'starred',
-                element: <ProtectedRoute><HomePage /></ProtectedRoute>
+                element: <HomePage />
             },
             {
                 path: 'send',
-                element: <ProtectedRoute><HomePage /></ProtectedRoute>
+                element: <HomePage />
             },
             {
                 path: 'drafts',
-                element: <ProtectedRoute><HomePage /></ProtectedRoute>
+                element: <HomePage />
             },
             {
                 path: 'all-mail',
-                element: <ProtectedRoute><HomePage /></ProtectedRoute>
+                element: <HomePage />
             },
             {
                 path: 'trash',
-                element: <ProtectedRoute><HomePage /></ProtectedRoute>
+                element: <HomePage />
             },
             {
                 path: 'spam',
-                element: <ProtectedRoute><HomePage /></ProtectedRoute>
+                element: <HomePage />
             },
             {
                 path: 'tasks',
-                element: <ProtectedRoute><KanbanBoard /></ProtectedRoute>
+                element: <KanbanBoard />
             },
             {
-                path: 'auth',
-                element: <LoginPage />
+                path: 'registration',
+                element: (
+                    <RoleGuard allowedRoles={[RoleTypes.ADMIN]}>
+                        <RegistrationPage />
+                    </RoleGuard>
+                )
             }
         ]
+    },
+    {
+        path: '/auth',
+        element: (
+            <AuthGuard requireAuth={false}>
+                <LoginPage />
+            </AuthGuard>
+        )
     }
-])
+]);

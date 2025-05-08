@@ -7,5 +7,9 @@ export const UserService = {
             params: { query }
         });
         return data;
+    },
+    async getAllUsers(): Promise<IUser[]> {
+        const { data } = await api.get<IUser[]>('users');
+        return data;
     }
 }; 
