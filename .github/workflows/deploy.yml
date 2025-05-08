@@ -20,14 +20,28 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.PRIVATE_KEY }}
         script: |
+          # Добавляем путь к npm в переменную окружения
+          export PATH=$PATH:/usr/local/bin
+
+          # Проверяем установку node и npm
+          node -v
+          npm -v
+
+          # Переходим в директорию проекта
           cd /var/www/vkr/frontend
 
+          # Если папка .git отсутствует, клонируем репозиторий
           if [ ! -d ".git" ]; then
             git clone https://github.com/ElamanBaiguanishev/corporate-social-network-front . 
           else
             git pull
           fi
 
+          # Устанавливаем зависимости
           npm install
+
+          # Устанавливаем переменную окружения для API
           export VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}
+
+          # Строим проект
           npm run build
